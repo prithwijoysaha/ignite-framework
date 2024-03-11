@@ -35,7 +35,7 @@
 	},
 	"keywords": [],
 	"author": "Prithwijoy Saha",
-	"license": "ISC",
+	"license": "MIT",
 	"devDependencies": {
 		"commander": "^11.1.0",
 		"eslint": "^8.56.0",
