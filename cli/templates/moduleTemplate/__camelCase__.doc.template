@@ -1,0 +1,482 @@
+export default {
+	paths: {
+		'/__pluralizeParamCase__': {
+			get: {
+				description: 'Returns single or multiple __lowerCase__records from the system based on allowed query params',
+				operationId: 'find-__lowerCase__-records',
+				produces: ['application/json'],
+				tags: ['__pascalCase__'],
+				parameters: [
+					{
+						name: 'tags',
+						in: 'query',
+						description: 'tags to filter by',
+						required: false,
+						type: 'array',
+						items: {
+							type: 'string',
+						},
+						collectionFormat: 'csv',
+					},
+					{
+						name: 'limit',
+						in: 'query',
+						description: 'maximum number of results to return',
+						required: true,
+						type: 'integer',
+						format: 'int32',
+					},
+					{
+						name: 'startTimeStampTz',
+						in: 'query',
+						description: 'timestamp with required zone',
+						required: false,
+						type: 'string',
+						format: 'date-time',
+					},
+					{
+						name: 'endTimeStampTz',
+						in: 'query',
+						description: 'timestamp with required zone',
+						required: false,
+						type: 'string',
+						format: 'date-time',
+					},
+				],
+				responses: {
+					200: {
+						description: '__lowerCase__response',
+						content: {
+							'application/json': {
+								schema: {
+									$ref: '#/components/schemas/FetchMultipleSuccessResponse',
+								},
+							},
+						},
+					},
+					default: {
+						description: 'unexpected error',
+						schema: {
+							$ref: '#/components/schemas/Error',
+						},
+					},
+				},
+			},
+			post: {
+				description: 'Creates a new __lowerCase__in the store.  Duplicates are allowed',
+				operationId: 'create-__lowerCase__',
+				produces: ['application/json'],
+				tags: ['__pascalCase__'],
+				parameters: [
+					{
+						name: 'body',
+						in: 'body',
+						description: '__lowerCase__to add to the store',
+						required: true,
+						schema: {
+							type: 'object',
+							$ref: '#/components/schemas/New__pascalCase__Request',
+						},
+					},
+				],
+				responses: {
+					200: {
+						content: {
+							'application/json': {
+								$ref: '#/components/schemas/NewSuccessResponse',
+							},
+						},
+					},
+					default: {
+						description: 'unexpected error',
+						content: {
+							'application/json': {
+								schema: {
+									$ref: '#/components/schemas/Error',
+								},
+							},
+						},
+					},
+				},
+			},
+		},
+		'/__pluralizeParamCase__/{__camelCase__Id}': {
+			get: {
+				description: 'Returns a __lowerCase__record based on a single __camelCase__Id',
+				operationId: 'find-single-__lowerCase__',
+				produces: ['application/json'],
+				tags: ['__pascalCase__'],
+				parameters: [
+					{
+						name: '__camelCase__Id',
+						in: 'path',
+						description: '__camelCase__Id of __lowerCase__to fetch',
+						required: true,
+						type: 'string',
+						format: 'uuid',
+					},
+				],
+				responses: {
+					200: {
+						description: '__lowerCase__response',
+						content: {
+							'application/json': {
+								schema: {
+									$ref: '#/components/schemas/FetchSingleSuccessResponse',
+								},
+							},
+						},
+					},
+					default: {
+						description: 'unexpected error',
+						schema: {
+							$ref: '#/components/schemas/Error',
+						},
+					},
+				},
+			},
+			put: {
+				description: 'Update all field based on __camelCase__Id or if record not exist then create a new record',
+				operationId: 'update-or-create-single-__lowerCase__',
+				produces: ['application/json'],
+				tags: ['__pascalCase__'],
+				parameters: [
+					{
+						name: '__camelCase__Id',
+						in: 'path',
+						description:
+							'__camelCase__Id of __lowerCase__to update all field or if record not exist then create a new record',
+						required: true,
+						type: 'string',
+						format: 'uuid',
+					},
+					{
+						name: 'body',
+						in: 'body',
+						description: '__lowerCase__to update to the store',
+						required: true,
+						schema: {
+							type: 'object',
+							$ref: '#/components/schemas/New__pascalCase__Request',
+						},
+					},
+				],
+				responses: {
+					200: {
+						description: '__lowerCase__response',
+						content: {
+							'application/json': {
+								schema: {
+									$ref: '#/components/schemas/UpdateSuccessResponse',
+								},
+							},
+						},
+					},
+					default: {
+						description: 'unexpected error',
+						schema: {
+							$ref: '#/components/schemas/Error',
+						},
+					},
+				},
+			},
+			patch: {
+				description: 'Update specific field based on __camelCase__Id',
+				operationId: 'update-single-__lowerCase__',
+				produces: ['application/json'],
+				tags: ['__pascalCase__'],
+				parameters: [
+					{
+						name: '__camelCase__Id',
+						in: 'path',
+						description: '__camelCase__Id of __lowerCase__to update specific field',
+						required: true,
+						type: 'string',
+						format: 'uuid',
+					},
+					{
+						name: 'body',
+						in: 'body',
+						description: 'update individual field in the store',
+						required: true,
+						schema: {
+							type: 'object',
+							$ref: '#/components/schemas/Update__pascalCase__Request',
+						},
+					},
+				],
+				responses: {
+					200: {
+						description: '__lowerCase__response',
+						content: {
+							'application/json': {
+								schema: {
+									$ref: '#/components/schemas/UpdateSuccessResponse',
+								},
+							},
+						},
+					},
+					default: {
+						description: 'unexpected error',
+						schema: {
+							$ref: '#/components/schemas/Error',
+						},
+					},
+				},
+			},
+			delete: {
+				description: 'Deletes a single __lowerCase__based on the __camelCase__Id supplied',
+				operationId: 'delete-__lowerCase__',
+				tags: ['__pascalCase__'],
+				parameters: [
+					{
+						name: '__camelCase__Id',
+						in: 'path',
+						description: '__camelCase__Id of __lowerCase__to delete',
+						required: true,
+						type: 'string',
+						format: 'uuid',
+					},
+				],
+				responses: {
+					200: {
+						description: '__lowerCase__deleted',
+						content: {
+							'application/json': {
+								schema: {
+									$ref: '#/components/schemas/UpdateSuccessResponse',
+								},
+							},
+						},
+					},
+					default: {
+						description: 'unexpected error',
+						schema: {
+							$ref: '#/components/schemas/Error',
+						},
+					},
+				},
+			},
+		},
+	},
+	components: {
+		schemas: {
+			__pascalCase__: {
+				type: 'object',
+				properties: {
+					firstName: {
+						type: 'string',
+					},
+					lastName: {
+						type: 'string',
+					},
+					phone: {
+						type: 'integer',
+					},
+					email: {
+						type: 'string',
+					},
+					organizationName: {
+						type: 'string',
+					},
+					organizationPhone: {
+						type: 'integer',
+					},
+					organizationEmail: {
+						type: 'string',
+					},
+				},
+			},
+			New__pascalCase__Request: {
+				allOf: [
+					{ $ref: '#/components/schemas/__pascalCase__' },
+					{
+						required: [
+							'firstName',
+							'lastName',
+							'phoneCountryCode',
+							'phone',
+							'email',
+							'organizationName',
+							'organizationPhoneCountryCode',
+							'organizationPhone',
+							'organizationEmail',
+						],
+						properties: {
+							phoneCountryCode: {
+								type: 'integer',
+							},
+							organizationPhoneCountryCode: {
+								type: 'integer',
+							},
+						},
+					},
+				],
+			},
+			Update__pascalCase__Request: {
+				allOf: [
+					{ $ref: '#/components/schemas/__pascalCase__' },
+					{
+						properties: {
+							phoneCountryCode: {
+								type: 'integer',
+							},
+							organizationPhoneCountryCode: {
+								type: 'integer',
+							},
+						},
+					},
+				],
+			},
+			__pascalCase__SuccessResponse: {
+				type: 'object',
+				properties: {
+					firstName: {
+						type: 'string',
+					},
+					lastName: {
+						type: 'string',
+					},
+					phone: {
+						type: 'string',
+					},
+					email: {
+						type: 'string',
+					},
+					organizationName: {
+						type: 'string',
+					},
+					organizationPhone: {
+						type: 'string',
+					},
+					organizationEmail: {
+						type: 'string',
+					},
+				},
+			},
+			NewSuccessResponse: {
+				type: 'object',
+				required: ['meta', 'errors'],
+				properties: {
+					meta: {
+						type: 'object',
+						properties: {
+							requestId: {
+								type: 'string',
+								format: 'uuid',
+							},
+							responseType: {
+								type: 'string',
+								name: 'OK',
+							},
+						},
+					},
+					errors: {
+						type: 'array',
+					},
+					result: {
+						type: 'object',
+						properties: {
+							__camelCase__Id: {
+								type: 'string',
+								format: 'uuid',
+							},
+						},
+					},
+				},
+			},
+			FetchMultipleSuccessResponse: {
+				type: 'object',
+				required: ['meta', 'errors'],
+				properties: {
+					meta: {
+						type: 'object',
+						properties: {
+							requestId: {
+								type: 'string',
+								format: 'uuid',
+							},
+							responseType: {
+								type: 'string',
+								name: 'OK',
+							},
+						},
+					},
+					errors: {
+						type: 'array',
+					},
+					result: {
+						type: 'object',
+						properties: {
+							count: {
+								type: 'integer',
+							},
+							records: {
+								type: 'array',
+								items: {
+									$ref: '#/components/schemas/__pascalCase__SuccessResponse',
+								},
+							},
+						},
+					},
+				},
+			},
+			FetchSingleSuccessResponse: {
+				type: 'object',
+				required: ['meta', 'errors'],
+				properties: {
+					meta: {
+						type: 'object',
+						properties: {
+							requestId: {
+								type: 'string',
+								format: 'uuid',
+							},
+							responseType: {
+								type: 'string',
+								name: 'OK',
+							},
+						},
+					},
+					errors: {
+						type: 'array',
+					},
+					result: {
+						type: 'object',
+						$ref: '#/components/schemas/__pascalCase__SuccessResponse',
+					},
+				},
+			},
+			UpdateSuccessResponse: {
+				type: 'object',
+				required: ['meta', 'errors'],
+				properties: {
+					meta: {
+						type: 'object',
+						properties: {
+							requestId: {
+								type: 'string',
+								format: 'uuid',
+							},
+							responseType: {
+								type: 'string',
+								name: 'OK',
+							},
+						},
+					},
+					errors: {
+						type: 'array',
+					},
+					result: {
+						type: 'object',
+						properties: {
+							count: {
+								type: 'integer',
+							},
+						},
+					},
+				},
+			},
+		},
+	},
+};

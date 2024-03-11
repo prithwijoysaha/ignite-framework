@@ -1,0 +1,353 @@
+// @ts-check
+import { captureException } from '../../../../libraries/exception.js';
+import { prepareObject } from '../../../../libraries/utility.js';
+import {
+	find__pascalCase__ByIdValidator,
+	find__pascalCase__Validator,
+	create__pascalCase__Validator,
+	update__pascalCase__Validator,
+	patch__pascalCase__Validator,
+	delete__pascalCase__Validator,
+} from './__camelCase__.validator.js';
+import {
+	find__pascalCase__ByIdService,
+	find__pascalCase__Service,
+	create__pascalCase__Service,
+	update__pascalCase__Service,
+	patch__pascalCase__Service,
+	delete__pascalCase__Service,
+} from './__camelCase__.service.js';
+/**
+ * @typedef {string} UUID - Universally Unique Identifier.
+ * @typedef {object} OK
+ * @property {{message:string,data:{count:number,records:Array}}} OK - The status flag defines operation successful, message is the success message, count inside data object defines number of row effected or number of records fetched .
+ * @typedef {object} BadRequest
+ * @property {Array.<{message: string,reason:string}>} BadRequest - The status flag that defines operation has any data validation error or incorrect data provided.
+ * @typedef {object} Unauthorized
+ * @property {Array.<{message : string, reason:string }>} Unauthorized - The status flag that defines operation has a authorization or authentication error.
+ * @typedef {object} InternalServerError
+ * @property {Array.<{message : string, reason:string }>} InternalServerError - The status flag that defines operation has a exception or unexpected error.
+ * @typedef {OK|BadRequest|Unauthorized|InternalServerError} ControllerReturnType
+ */
+/**
+ * @async
+ * @function find__pascalCase__
+ * @param {object} request - A object containing searching parameters
+ * @returns {Promise<ControllerReturnType>} A promise that resolves to an object representing the result of the operation.
+ * @throws {Error} If an uncaught or unhandled error occurs while doing the operation.
+ */
+export const find__pascalCase__ = async (request) => {
+	try {
+		const { payload } = request;
+		// Data validation
+		const { error: validationError, data: validatedData } = await find__pascalCase__Validator({
+			startTimeStampTz: payload.startTimeStampTz,
+			endTimeStampTz: payload.endTimeStampTz,
+			tags: payload.tags,
+			offset: payload.offset,
+			limit: payload.limit,
+		});
+		if (validationError !== null) {
+			return validationError;
+		}
+
+		// Data preparation and passing to the model
+		const { error: find__pascalCase__Error, data: find__pascalCase__Result } = await find__pascalCase__Service(
+			validatedData.startTimeStampTz,
+			validatedData.endTimeStampTz,
+			validatedData.tags ? validatedData.tags.split(',') : undefined,
+			validatedData.offset,
+			validatedData.limit
+		);
+		if (find__pascalCase__Error !== null) {
+			return find__pascalCase__Error;
+		}
+		return {
+			OK: {
+				message: find__pascalCase__Result.length === 0 ? 'No record found.' : '__pascalCase__ data found.',
+				data: {
+					count: find__pascalCase__Result.length,
+					records: find__pascalCase__Result,
+				},
+			},
+		};
+	} catch (e) {
+		captureException(e);
+		return { InternalServerError: [{ message: 'Error occurred while fetching __lowerCase__records.', reason: e.message }] };
+	}
+};
+
+/**
+ * @async
+ * @function find__pascalCase__ById
+ * @param {object} request - A object containing object id of __lowerCase__module
+ * @returns {Promise<ControllerReturnType>} A promise that resolves to an object representing the result of the operation.
+ * @throws {Error} If an uncaught or unhandled error occurs while doing the operation.
+ */
+export const find__pascalCase__ById = async (request) => {
+	try {
+		const { payload } = request;
+
+		// Data validation
+		const { error: validationError, data: validatedData } = await find__pascalCase__ByIdValidator({
+			__camelCase__Id: payload.__camelCase__Id,
+		});
+		if (validationError !== null) {
+			return validationError;
+		}
+
+		// Data preparation and passing to the model
+		const { error: find__pascalCase__ByIdError, data: find__pascalCase__ByIdResult } = await find__pascalCase__ByIdService(
+			validatedData.__camelCase__Uuid
+		);
+		if (find__pascalCase__ByIdError !== null) {
+			return find__pascalCase__ByIdError;
+		}
+
+		return {
+			OK: {
+				message: '__pascalCase__ details found.',
+				data: {
+					count: find__pascalCase__ByIdResult.length,
+					records: [find__pascalCase__ByIdResult],
+				},
+			},
+		};
+	} catch (e) {
+		captureException(e);
+		return { InternalServerError: [{ message: 'Error occurred while fetching __lowerCase__details.', reason: e.message }] };
+	}
+};
+
+/**
+ * @async
+ * @function create__pascalCase__
+ * @param {object} request - A object containing __lowerCase__details
+ * @returns {Promise<ControllerReturnType>} A promise that resolves to an object representing the result of the operation.
+ * @throws {Error} If an uncaught or unhandled error occurs while doing the operation.
+ */
+export const create__pascalCase__ = async (request) => {
+	try {
+		const { payload } = request;
+
+		// Data validation
+		const { error: validationError, data: validatedData } = await create__pascalCase__Validator({
+			firstName: payload.firstName,
+			lastName: payload.lastName,
+			phoneCountryCode: payload.phoneCountryCode,
+			phone: payload.phone,
+			email: payload.email,
+			organizationName: payload.organizationName,
+			organizationPhoneCountryCode: payload.organizationPhoneCountryCode,
+			organizationPhone: payload.organizationPhone,
+			organizationEmail: payload.organizationEmail,
+		});
+		if (validationError !== null) {
+			return validationError;
+		}
+
+		// Data preparation and passing to the model
+		const { error: create__pascalCase__ServiceError, data: create__pascalCase__ServiceResult } = await create__pascalCase__Service(
+			prepareObject({
+				firstName: validatedData.firstName,
+				lastName: validatedData.lastName,
+				phoneCountryCode: validatedData.phoneCountryCode,
+				phone: validatedData.phone,
+				email: validatedData.email,
+				organizationName: validatedData.organizationName,
+				organizationPhoneCountryCode: validatedData.organizationPhoneCountryCode,
+				organizationPhone: validatedData.organizationPhone,
+				organizationEmail: validatedData.organizationEmail,
+			})
+		);
+		if (create__pascalCase__ServiceError !== null) {
+			return create__pascalCase__ServiceError;
+		}
+
+		return {
+			OK: {
+				message: '__pascalCase__ details saved successfully.',
+				data: {
+					count: 1,
+					records: [
+						{
+							__camelCase__Id: create__pascalCase__ServiceResult.uuid,
+							firstName: create__pascalCase__ServiceResult.firstName,
+							lastName: create__pascalCase__ServiceResult.lastName,
+							phone: create__pascalCase__ServiceResult.phone,
+							email: create__pascalCase__ServiceResult.email,
+							organizationName: create__pascalCase__ServiceResult.organizationName,
+							organizationPhone: create__pascalCase__ServiceResult.organizationPhone,
+							organizationEmail: create__pascalCase__ServiceResult.organizationEmail,
+						},
+					],
+				},
+			},
+		};
+	} catch (e) {
+		captureException(e);
+		return { InternalServerError: [{ message: 'Error occurred while saving __lowerCase__details.', reason: e.message }] };
+	}
+};
+
+/**
+ * @async
+ * @function update__pascalCase__
+ * @param {object} request - A object containing details to be update and object id
+ * @returns {Promise<ControllerReturnType>} A promise that resolves to an object representing the result of the operation.
+ * @throws {Error} If an uncaught or unhandled error occurs while doing the operation.
+ */
+export const update__pascalCase__ = async (request) => {
+	try {
+		const { payload } = request;
+		// Data validation
+		const { error: validationError, data: validatedData } = await update__pascalCase__Validator({
+			__camelCase__Id: payload.__camelCase__Id,
+			firstName: payload.firstName,
+			lastName: payload.lastName,
+			phoneCountryCode: payload.phoneCountryCode,
+			phone: payload.phone,
+			email: payload.email,
+			organizationName: payload.organizationName,
+			organizationPhoneCountryCode: payload.organizationPhoneCountryCode,
+			organizationPhone: payload.organizationPhone,
+			organizationEmail: payload.organizationEmail,
+		});
+		if (validationError !== null) {
+			return validationError;
+		}
+
+		// Data preparation and passing to the model
+		const { error: update__pascalCase__ServiceError, data: update__pascalCase__ServiceResult } = await update__pascalCase__Service(
+			validatedData.__camelCase__Uuid,
+			prepareObject({
+				firstName: validatedData.firstName,
+				lastName: validatedData.lastName,
+				phoneCountryCode: validatedData.phoneCountryCode,
+				phone: validatedData.phone,
+				email: validatedData.email,
+				organizationName: validatedData.organizationName,
+				organizationPhoneCountryCode: validatedData.organizationPhoneCountryCode,
+				organizationPhone: validatedData.organizationPhone,
+				organizationEmail: validatedData.organizationEmail,
+			})
+		);
+		if (update__pascalCase__ServiceError !== null) {
+			return update__pascalCase__ServiceError;
+		}
+		return {
+			OK: {
+				message: '__pascalCase__ details updated successfully.',
+				data: {
+					count: update__pascalCase__ServiceResult.modifiedCount,
+					records: [],
+				},
+			},
+		};
+	} catch (e) {
+		captureException(e);
+		return { InternalServerError: [{ message: 'Error occurred while updating __lowerCase__details.', reason: e.message }] };
+	}
+};
+
+/**
+ * @async
+ * @function patch__pascalCase__
+ * @param {object} request - A object containing details to be update and object id
+ * @returns {Promise<ControllerReturnType>} A promise that resolves to an object representing the result of the operation.
+ * @throws {Error} If an uncaught or unhandled error occurs while doing the operation.
+ */
+export const patch__pascalCase__ = async (request) => {
+	try {
+		const { payload } = request;
+
+		// Data validation
+		const { error: validationError, data: validatedData } = await patch__pascalCase__Validator({
+			__camelCase__Id: payload.__camelCase__Id,
+			firstName: payload.firstName,
+			lastName: payload.lastName,
+			phoneCountryCode: payload.phoneCountryCode,
+			phone: payload.phone,
+			email: payload.email,
+			organizationName: payload.organizationName,
+			organizationPhoneCountryCode: payload.organizationPhoneCountryCode,
+			organizationPhone: payload.organizationPhone,
+			organizationEmail: payload.organizationEmail,
+		});
+		if (validationError !== null) {
+			return validationError;
+		}
+
+		// Data preparation and passing to the model
+		const { error: patch__pascalCase__ServiceError, data: patch__pascalCase__ServiceResult } = await patch__pascalCase__Service(
+			validatedData.__camelCase__Uuid,
+			prepareObject({
+				firstName: validatedData.firstName,
+				lastName: validatedData.lastName,
+				phoneCountryCode: validatedData.phoneCountryCode,
+				phone: validatedData.phone,
+				email: validatedData.email,
+				organizationName: validatedData.organizationName,
+				organizationPhoneCountryCode: validatedData.organizationPhoneCountryCode,
+				organizationPhone: validatedData.organizationPhone,
+				organizationEmail: validatedData.organizationEmail,
+			})
+		);
+		if (patch__pascalCase__ServiceError !== null) {
+			return patch__pascalCase__ServiceError;
+		}
+
+		return {
+			OK: {
+				message: '__pascalCase__ details updated successfully.',
+				data: {
+					count: patch__pascalCase__ServiceResult.modifiedCount,
+					records: [],
+				},
+			},
+		};
+	} catch (e) {
+		captureException(e);
+		return { InternalServerError: [{ message: 'Error occurred while updating __lowerCase__details.', reason: e.message }] };
+	}
+};
+
+/**
+ * @async
+ * @function delete__pascalCase__
+ * @param {object} request - A object containing object id for deleting a particular record
+ * @returns {Promise<ControllerReturnType>} A promise that resolves to an object representing the result of the operation.
+ * @throws {Error} If an uncaught or unhandled error occurs while doing the operation.
+ */
+export const delete__pascalCase__ = async (request) => {
+	try {
+		const { payload } = request;
+
+		// Data validation
+		const { error: validationError, data: validatedData } = await delete__pascalCase__Validator({ __camelCase__Id: payload.__camelCase__Id });
+		if (validationError !== null) {
+			return validationError;
+		}
+
+		// Data preparation and passing to the model
+		const { error: delete__pascalCase__Error, data: delete__pascalCase__Result } = await delete__pascalCase__Service(validatedData.__camelCase__Uuid);
+		if (delete__pascalCase__Error !== null) {
+			return delete__pascalCase__Error;
+		}
+
+		return {
+			OK: {
+				message: delete__pascalCase__Result.deletedCount
+					? '__pascalCase__ details deleted successfully.'
+					: '__pascalCase__ details not exist.',
+				data: {
+					count: delete__pascalCase__Result.deletedCount,
+					records: [],
+				},
+			},
+		};
+	} catch (e) {
+		captureException(e);
+		return { InternalServerError: [{ message: 'Error occurred while deleting __lowerCase__details.', reason: e.message }] };
+	}
+};

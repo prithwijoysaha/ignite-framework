@@ -1,0 +1,184 @@
+import joi from 'joi';
+import { captureException } from '../../../libraries/exception.js';
+
+/**
+ * @typedef {Array.<object|null,any>} ErrorFirstArray
+ */
+const commonValidations = {
+	__camelCase__Id: joi.string().uuid(),
+	firstName: joi.string().max(100).trim(true),
+	lastName: joi.string().max(100).trim(true),
+	phoneCountryCode: joi.number().integer().min(1).max(1624),
+	phone: joi
+		.string()
+		.pattern(/^[0-9]+$/)
+		.min(4)
+		.max(20)
+		.trim(true),
+	email: joi.string().email().max(60).trim(true),
+	organizationName: joi.string().max(100).trim(true),
+	organizationPhoneCountryCode: joi.number().integer().min(1).max(1624),
+	organizationPhone: joi
+		.string()
+		.pattern(/^[0-9]+$/)
+		.min(4)
+		.max(20)
+		.trim(true)
+		.required(),
+	organizationEmail: joi.string().email().max(60).trim(true),
+};
+
+/**
+ * @async
+ * @function find__pascalCase__Validator
+ * @param {object}  rawData - Unfiltered data to be validate
+ * @returns {Promise.<ErrorFirstArray,Error>} - A promise that returns a error first array if resolved, or an Error if rejected.
+ */
+export const find__pascalCase__Validator = async (rawData) => {
+	try {
+		const schema = joi.object({
+			limit: joi.number().required(),
+			tags: joi.array().items(joi.string()).optional(),
+			startTimeStampTz: joi.string().optional(),
+			endTimeStampTz: joi.string().optional(),
+		});
+		return [null, await schema.validateAsync(rawData)];
+	} catch (e) {
+		if (e.details) {
+			return [{ BadRequest: e.details.map((errorDetail) => ({ message: errorDetail.message })) }, null];
+		}
+		captureException(e);
+		return [{ InternalServerError: [{ reason: e.message }] }, null];
+	}
+};
+
+/**
+ * @async
+ * @function find__pascalCase__ByIdValidator
+ * @param {object}  rawData - Unfiltered data to be validate
+ * @returns {Promise.<ErrorFirstArray,Error>} - A promise that returns a error first array if resolved, or an Error if rejected.
+ */
+export const find__pascalCase__ByIdValidator = async (rawData) => {
+	try {
+		const schema = joi.object({
+			__camelCase__Id: commonValidations.__camelCase__Id.required(),
+		});
+		return [null, await schema.validateAsync(rawData)];
+	} catch (e) {
+		if (e.details) {
+			return [{ BadRequest: e.details.map((errorDetail) => ({ message: errorDetail.message })) }, null];
+		}
+		captureException(e);
+		return [{ InternalServerError: [{ reason: e.message }] }, null];
+	}
+};
+
+/**
+ * @async
+ * @function create__pascalCase__Validator
+ * @param {object}  rawData - Unfiltered data to be validate
+ * @returns {Promise.<ErrorFirstArray,Error>} - A promise that returns a error first array if resolved, or an Error if rejected.
+ */
+export const create__pascalCase__Validator = async (rawData) => {
+	try {
+		const schema = joi.object({
+			firstName: commonValidations.firstName.required(),
+			lastName: commonValidations.lastName.required(),
+			phoneCountryCode: commonValidations.phoneCountryCode.required(),
+			phone: commonValidations.phone.required(),
+			email: commonValidations.email.required(),
+			organizationName: commonValidations.organizationName.required(),
+			organizationPhoneCountryCode: commonValidations.organizationPhoneCountryCode.required(),
+			organizationPhone: commonValidations.organizationPhone.required(),
+			organizationEmail: commonValidations.organizationEmail.required(),
+		});
+		return [null, await schema.validateAsync(rawData)];
+	} catch (e) {
+		if (e.details) {
+			return [{ BadRequest: e.details.map((errorDetail) => ({ message: errorDetail.message })) }, null];
+		}
+		captureException(e);
+		return [{ InternalServerError: [{ reason: e.message }] }, null];
+	}
+};
+
+/**
+ * @async
+ * @function update__pascalCase__Validator
+ * @param {object}  rawData - Unfiltered data to be validate
+ * @returns {Promise.<ErrorFirstArray,Error>} - A promise that returns a error first array if resolved, or an Error if rejected.
+ */
+export const update__pascalCase__Validator = async (rawData) => {
+	try {
+		const schema = joi.object({
+			__camelCase__Id: commonValidations.__camelCase__Id.required(),
+			firstName: commonValidations.firstName.required().allow('',null),
+			lastName: commonValidations.lastName.required().allow('',null),
+			phoneCountryCode: commonValidations.phoneCountryCode.required().allow('',null),
+			phone: commonValidations.phone.required().allow('',null),
+			email: commonValidations.email.required().allow('',null),
+			organizationName: commonValidations.organizationName.required().allow('',null),
+			organizationPhoneCountryCode: commonValidations.organizationPhoneCountryCode.required().allow('',null),
+			organizationPhone: commonValidations.organizationPhone.required().allow('',null),
+			organizationEmail: commonValidations.organizationEmail.required().allow('',null),
+		});
+		return [null, await schema.validateAsync(rawData)];
+	} catch (e) {
+		if (e.details) {
+			return [{ BadRequest: e.details.map((errorDetail) => ({ message: errorDetail.message })) }, null];
+		}
+		captureException(e);
+		return [{ InternalServerError: [{ reason: e.message }] }, null];
+	}
+};
+
+/**
+ * @async
+ * @function patch__pascalCase__Validator
+ * @param {object}  rawData - Unfiltered data to be validate
+ * @returns {Promise.<ErrorFirstArray,Error>} - A promise that returns a error first array if resolved, or an Error if rejected.
+ */
+export const patch__pascalCase__Validator = async (rawData) => {
+	try {
+		const schema = joi.object({
+			__camelCase__Id: commonValidations.__camelCase__Id.required(),
+			firstName: commonValidations.firstName.optional(),
+			lastName: commonValidations.lastName.optional(),
+			phoneCountryCode: commonValidations.phoneCountryCode.optional(),
+			phone: commonValidations.phone.optional(),
+			email: commonValidations.email.optional(),
+			organizationName: commonValidations.organizationName.optional(),
+			organizationPhoneCountryCode: commonValidations.organizationPhoneCountryCode.optional(),
+			organizationPhone: commonValidations.organizationPhone.optional(),
+			organizationEmail: commonValidations.organizationEmail.optional(),
+		});
+		return [null, await schema.validateAsync(rawData)];
+	} catch (e) {
+		if (e.details) {
+			return [{ BadRequest: e.details.map((errorDetail) => ({ message: errorDetail.message })) }, null];
+		}
+		captureException(e);
+		return [{ InternalServerError: [{ reason: e.message }] }, null];
+	}
+};
+
+/**
+ * @async
+ * @function delete__pascalCase__Validator
+ * @param {object}  rawData - Unfiltered data to be validate
+ * @returns {Promise.<ErrorFirstArray,Error>} - A promise that returns a error first array if resolved, or an Error if rejected.
+ */
+export const delete__pascalCase__Validator = async (rawData) => {
+	try {
+		const schema = joi.object({
+			__camelCase__Id: commonValidations.__camelCase__Id.required(),
+		});
+		return [null, await schema.validateAsync(rawData)];
+	} catch (e) {
+		if (e.details) {
+			return [{ BadRequest: e.details.map((errorDetail) => ({ message: errorDetail.message })) }, null];
+		}
+		captureException(e);
+		return [{ InternalServerError: [{ reason: e.message }] }, null];
+	}
+};

@@ -1,0 +1,33 @@
+/**
+ * @param {object} sequelize sequelize database connection instance
+ * @param {object} DataTypes sequelize datatypes
+ * @returns {Function} __pascalCase__ model instance
+ */
+export default function __pascalCase__(sequelize, DataTypes) {
+	return sequelize.define(
+		'__pascalCase__',
+		{
+			id: {
+				type: DataTypes.INTEGER,
+				autoIncrement: true,
+				allowNull: false,
+				unique: true,
+				primaryKey: true,
+				comment: 'This column is the primary unique identifier of each row in this table',
+			},
+			uuid: {
+				type: DataTypes.UUID,
+				allowNull: false,
+				defaultValue: DataTypes.UUIDV4,
+				unique: true,
+				comment: 'This column is the secondary unique identifier of each row in this table',
+			},
+		},
+		{
+			comment: "I'm a table comment!",
+			underscored: true,
+			schema: 'public',
+			tableName: '__tableName__'
+		}
+	);
+}

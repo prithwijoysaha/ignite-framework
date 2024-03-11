@@ -1,0 +1,1 @@
+// This file will contain __lowerCase__ module specific common functions which can be called from __lowerCase__.controller.js or __lowerCase__.middleware.js or router or filter or model

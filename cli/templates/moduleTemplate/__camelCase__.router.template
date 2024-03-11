@@ -1,0 +1,30 @@
+import express from 'express';
+import { find__pascalCase__ById, find__pascalCase__, create__pascalCase__, update__pascalCase__, patch__pascalCase__, delete__pascalCase__ } from './__camelCase__.controller.js';
+
+const router = express.Router();
+
+router.get('/', async (req, res) => {
+	res.return(await find__pascalCase__({ payload: { ...req.params, ...req.query, ...req.body }, headers: req.headers }));
+});
+
+router.get('/:__camelCase__Id', async (req, res) => {
+	res.return(await find__pascalCase__ById({ payload: { ...req.params, ...req.query, ...req.body }, headers: req.headers }));
+});
+
+router.post('/', async (req, res) => {
+	res.return(await create__pascalCase__({ payload: { ...req.params, ...req.query, ...req.body }, headers: req.headers }));
+});
+
+router.put('/:__camelCase__Id', async (req, res) => {
+	res.return(await update__pascalCase__({ payload: { ...req.params, ...req.query, ...req.body }, headers: req.headers }));
+});
+
+router.patch('/:__camelCase__Id', async (req, res) => {
+	res.return(await patch__pascalCase__({ payload: { ...req.params, ...req.query, ...req.body }, headers: req.headers }));
+});
+
+router.delete('/:__camelCase__Id', async (req, res) => {
+	res.return(await delete__pascalCase__({ payload: { ...req.params, ...req.query, ...req.body }, headers: req.headers }));
+});
+
+export default router;

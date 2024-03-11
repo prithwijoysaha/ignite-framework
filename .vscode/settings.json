@@ -1,0 +1,34 @@
+{
+	"cSpell.words": [
+		"alphanum",
+		"autorestart",
+		"DDTHH",
+		"esversion",
+		"Hotfixes",
+		"hstore",
+		"middlewares",
+		"NOSQL",
+		"openapi",
+		"prestart",
+		"UUIDV"
+	],
+	"material-icon-theme.files.associations": {
+		"*.bus.js": "tree",
+		"*.controller.js": "command",
+		"*.doc.js": "document",
+		"*.helper.js": "autohotkey",
+		"*.lambda.js": "scheme",
+		"*.middleware.js": "url",
+		"*.router.js": "routing",
+		"*.service.js": "database",
+		"*.validator.js": "smarty",
+		"www.js": "gemini",
+	},
+	"material-icon-theme.folders.associations": {
+		"thirdparty": "plugin",
+		"modules": "app",
+		"v1": "app",
+		"v1/logs": "",
+		"v1/projects": ""
+	}
+}

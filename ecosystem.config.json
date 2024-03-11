@@ -1,0 +1,30 @@
+{
+	"apps": [
+		{
+			"name": "app",
+			"script": "src/index.js",
+			"instances": 1,
+			"autorestart": true,
+			"watch": false,
+			"time": true,
+			"env": {
+				"NODE_ENV": "local"
+			},
+			"env_local": {
+				"NODE_ENV": "local"
+			},
+			"env_development": {
+				"NODE_ENV": "development"
+			},
+			"env_staging": {
+				"NODE_ENV": "staging"
+			},
+			"env_testing": {
+				"NODE_ENV": "testing"
+			},
+			"env_production": {
+				"NODE_ENV": "production"
+			}
+		}
+	]
+}
