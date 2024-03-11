@@ -6,7 +6,7 @@
 	"main": "./bin/www",
 	"repository": {
 		"type": "git",
-		"url": "https://github.com/prithwijoysaha/ignite-js.git"
+		"url": "https://github.com/prithwijoysaha/ignite-framework"
 	},
 	"type": "module",
 	"engines": {
