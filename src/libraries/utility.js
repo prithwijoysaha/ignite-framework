@@ -248,11 +248,11 @@ export const getSystemVitals = async () => {
 
 export const compareUrlsIgnoringParameters = (
 	{ requestedUrlMethod, requestedUrl },
-	{ definedRouteUrlMethod, definedRouteUrl }
+	{ definedRouteUrlMethod, definedRouteUrl },
 ) => {
 	const compareArraysIgnoringColonPrefix = ({ requestedUrlArr, definedRouteUrlArr }) => {
 		const modifiedArr2 = definedRouteUrlArr.map((item, index) =>
-			item.startsWith(':') ? requestedUrlArr[index] : item
+			item.startsWith(':') ? requestedUrlArr[index] : item,
 		);
 
 		return JSON.stringify(requestedUrlArr) === JSON.stringify(modifiedArr2);

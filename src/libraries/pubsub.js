@@ -1,6 +1,6 @@
 import EventEmitter from 'events';
 
-export default  class PubSub {
+export default class PubSub {
 	constructor() {
 		this.emitter = new EventEmitter();
 	}

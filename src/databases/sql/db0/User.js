@@ -80,6 +80,6 @@ export default function User(sequelize, DataTypes) {
 			underscored: true,
 			schema: 'public',
 			tableName: 'users',
-		}
+		},
 	);
 }

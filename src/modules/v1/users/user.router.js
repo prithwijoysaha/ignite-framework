@@ -9,7 +9,7 @@ router.get('/', async (req, res) => {
 			payload: { ...req.params, ...req.query, ...req.body },
 			headers: req.headers,
 			locals: req.locals,
-		})
+		}),
 	);
 });
 
@@ -19,7 +19,7 @@ router.get('/:userId', async (req, res) => {
 			payload: { ...req.params, ...req.query, ...req.body },
 			headers: req.headers,
 			locals: req.locals,
-		})
+		}),
 	);
 });
 
@@ -29,7 +29,7 @@ router.post('/', async (req, res) => {
 			payload: { ...req.params, ...req.query, ...req.body },
 			headers: req.headers,
 			locals: req.locals,
-		})
+		}),
 	);
 });
 
@@ -39,7 +39,7 @@ router.put('/:userId', async (req, res) => {
 			payload: { ...req.params, ...req.query, ...req.body },
 			headers: req.headers,
 			locals: req.locals,
-		})
+		}),
 	);
 });
 
@@ -49,7 +49,7 @@ router.patch('/:userId', async (req, res) => {
 			payload: { ...req.params, ...req.query, ...req.body },
 			headers: req.headers,
 			locals: req.locals,
-		})
+		}),
 	);
 });
 
@@ -59,7 +59,7 @@ router.delete('/:userId', async (req, res) => {
 			payload: { ...req.params, ...req.query, ...req.body },
 			headers: req.headers,
 			locals: req.locals,
-		})
+		}),
 	);
 });
 

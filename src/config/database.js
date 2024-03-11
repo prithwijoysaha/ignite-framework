@@ -29,9 +29,9 @@ const databaseLogger = (msg) => {
 		// eslint-disable-next-line no-console
 		return console.log(
 			`${chalk.black.bgWhiteBright.bold(msg[0].split(':')[0])} : ${chalk.green(
-				msg[0].substring(msg[0].indexOf(':') + 1)
+				msg[0].substring(msg[0].indexOf(':') + 1),
 			)}`,
-			'\n'
+			'\n',
 		); // Print query string
 	}
 	return false;

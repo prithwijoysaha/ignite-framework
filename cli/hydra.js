@@ -38,8 +38,8 @@ program
 |⠄⠄⠄⠄⢰⣶⠄⠄⣶⠄⢶⣆⢀⣶⠂⣶⡶⠶⣦⡄⢰⣶⠶⢶⣦⠄⠄⣴⣶⠄⠄⠄⠄|
 |⠄⠄⠄⠄⢸⣿⠶⠶⣿⠄⠈⢻⣿⠁⠄⣿⡇⠄⢸⣿⢸⣿⢶⣾⠏⠄⣸⣟⣹⣧⠄⠄⠄|
 |⠄⠄⠄⠄⠸⠿⠄⠄⠿⠄⠄⠸⠿⠄⠄⠿⠷⠶⠿⠃⠸⠿⠄⠙⠷⠤⠿⠉⠉⠿⠆⠄⠄|`)}
-`)
-					)
+`),
+					),
 				);
 				process.stdout.write(data.toString());
 			});
@@ -95,7 +95,7 @@ program
 						.replace(/__pluralize__/g, pluralize(moduleName))
 						.replace(
 							/__normalCase__/g,
-							moduleName.toLowerCase().charAt(0).toUpperCase() + moduleName.toLowerCase().substring(1)
+							moduleName.toLowerCase().charAt(0).toUpperCase() + moduleName.toLowerCase().substring(1),
 						)
 						.replace(/__lowerCase__/g, moduleName.toLowerCase())
 						.replace(/__camelCase__/g, camelCase(moduleName))
@@ -158,11 +158,11 @@ program
 				if (databaseType === 'sql') {
 					const modelDirectory = pathResolve(
 						dirname('./'),
-						`src/databases/${databaseType}/db${databaseNumber}`
+						`src/databases/${databaseType}/db${databaseNumber}`,
 					);
 					const modelTemplateDirectory = pathResolve(
 						dirname('./'),
-						`cli/templates/databaseTemplate/${databaseType}Template`
+						`cli/templates/databaseTemplate/${databaseType}Template`,
 					);
 					const files = fs.readdirSync(modelTemplateDirectory);
 					files.forEach((fileName) => {

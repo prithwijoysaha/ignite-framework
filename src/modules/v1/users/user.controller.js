@@ -71,7 +71,7 @@ export const findUser = async (request) => {
 			validatedData.endTimeStampTz,
 			validatedData.tags ? validatedData.tags.split(',') : undefined,
 			validatedData.offset,
-			validatedData.limit
+			validatedData.limit,
 		);
 		if (findUserError !== null) {
 			return findUserError;
@@ -119,7 +119,7 @@ export const findUserById = async (request) => {
 		}
 		// Data preparation and passing to the model
 		const { error: findUserByIdError, data: findUserByIdResult } = await findUserByIdService(
-			validatedData.userUuid
+			validatedData.userUuid,
 		);
 		if (findUserByIdError !== null) {
 			return findUserByIdError;
@@ -199,7 +199,7 @@ export const createUser = async (request) => {
 				organizationPhoneCountryCode: validatedData.organizationPhoneCountryCode,
 				organizationPhone: validatedData.organizationPhone,
 				organizationEmail: validatedData.organizationEmail,
-			})
+			}),
 		);
 		if (createUserServiceError !== null) {
 			return createUserServiceError;
@@ -296,7 +296,7 @@ export const updateUser = async (request) => {
 				organizationPhoneCountryCode: validatedData.organizationPhoneCountryCode,
 				organizationPhone: validatedData.organizationPhone,
 				organizationEmail: validatedData.organizationEmail,
-			})
+			}),
 		);
 		if (updateUserServiceError !== null) {
 			return updateUserServiceError;
@@ -380,7 +380,7 @@ export const patchUser = async (request) => {
 				organizationPhoneCountryCode: validatedData.organizationPhoneCountryCode,
 				organizationPhone: validatedData.organizationPhone,
 				organizationEmail: validatedData.organizationEmail,
-			})
+			}),
 		);
 		if (patchUserServiceError !== null) {
 			return patchUserServiceError;

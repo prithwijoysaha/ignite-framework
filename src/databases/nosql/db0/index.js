@@ -53,7 +53,7 @@ if (getBoolean(DEBUG)) {
 const db = {};
 const modelDirectoryPath = dirname(fileURLToPath(import.meta.url));
 const allModelFiles = readdirSync(modelDirectoryPath).filter(
-	(file) => file.indexOf('.') !== 0 && file !== basename && file.slice(-3) === '.js'
+	(file) => file.indexOf('.') !== 0 && file !== basename && file.slice(-3) === '.js',
 );
 
 const models = await Promise.all(
@@ -61,7 +61,7 @@ const models = await Promise.all(
 		const modelFile = join(modelDirectoryPath, file);
 		const { default: model } = await import(pathToFileURL(modelFile));
 		return model(mongoose.model, Schema, mongoose.Schema.Types);
-	})
+	}),
 );
 
 models.forEach((model) => {

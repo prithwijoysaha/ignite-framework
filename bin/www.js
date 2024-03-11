@@ -79,13 +79,13 @@ const onListening = () => {
 				bold(
 					` ${blue('ENVIRONMENT')} =>  ${yellow(NODE_ENV?.toUpperCase())}  ${blue('APP NAME')} => ${yellow(
 						`${APP_NAME?.toUpperCase()} v${API_VERSION?.toUpperCase()}  ${blue('SERVER')} => ${yellow(
-							`${server.address().address?.replace('::', '127.0.0.1')?.toUpperCase()}:${port}`
-						)}  ${blue('URL')} => ${yellow(`${PROTOCOL}://${HOST}:${port}`)}`
-					)} `
-				)
-			)
+							`${server.address().address?.replace('::', '127.0.0.1')?.toUpperCase()}:${port}`,
+						)}  ${blue('URL')} => ${yellow(`${PROTOCOL}://${HOST}:${port}`)}`,
+					)} `,
+				),
+			),
 		),
-		'\n'
+		'\n',
 	);
 };
 

@@ -45,7 +45,7 @@ export default (model, Schema) => {
 				updatedAt: true,
 				timezone: 'UTC',
 			},
-		}
+		},
 	);
 	return model('User', UserSchema);
 };

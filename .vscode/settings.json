@@ -22,7 +22,7 @@
 		"*.router.js": "routing",
 		"*.service.js": "database",
 		"*.validator.js": "smarty",
-		"www.js": "gemini",
+		"www.js": "gemini"
 	},
 	"material-icon-theme.folders.associations": {
 		"thirdparty": "plugin",

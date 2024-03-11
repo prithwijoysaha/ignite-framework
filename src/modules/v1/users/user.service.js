@@ -201,7 +201,7 @@ export const updateUserService = async (uuid, preparedData) => {
 				},
 				returning: true,
 				raw: true,
-			}
+			},
 		);
 		return {
 			error: null,
@@ -266,7 +266,7 @@ export const patchUserService = async (uuid, password, salt, preparedData) => {
 				},
 				returning: true,
 				raw: true,
-			}
+			},
 		);
 
 		if (password && userDetails[0] > 0) {

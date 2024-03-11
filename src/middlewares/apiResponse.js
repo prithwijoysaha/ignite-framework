@@ -58,7 +58,7 @@ const responseBuilder = (req, res, next) => {
 				apiVersion: API_VERSION,
 				responseType,
 				requestId: req.locals.requestId,
-			})
+			}),
 		);
 	};
 
@@ -76,7 +76,7 @@ const responseBuilder = (req, res, next) => {
 					apiVersion: API_VERSION,
 					responseType,
 					requestId: req.locals.requestId,
-				})
+				}),
 			);
 		} else {
 			res.status(statusCode).send(
@@ -85,7 +85,7 @@ const responseBuilder = (req, res, next) => {
 					apiVersion: API_VERSION,
 					responseType,
 					requestId: req.locals.requestId,
-				})
+				}),
 			);
 		}
 	};
@@ -103,12 +103,12 @@ const responseBuilder = (req, res, next) => {
 				apiVersion: API_VERSION,
 				responseType,
 				requestId: req.locals.requestId,
-			})
+			}),
 		);
 	};
 	res.errorWithStatus = (statusCode, error = [], meta = {}) => {
 		const [responseTypes] = Object.entries(API_RESPONSE_CODES).filter(
-			([, value]) => value.statusCode === statusCode
+			([, value]) => value.statusCode === statusCode,
 		);
 		const responseType = responseTypes[0] || 'UncaughtError';
 
@@ -118,7 +118,7 @@ const responseBuilder = (req, res, next) => {
 				apiVersion: API_VERSION,
 				responseType,
 				requestId: req.locals.requestId,
-			})
+			}),
 		);
 	};
 	next();

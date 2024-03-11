@@ -47,7 +47,7 @@ const logger = winston.createLogger({
 		winston.format.timestamp(() => moment().utc().format('YYYY-MM-DD HH:mm:ss.ms Z')),
 		winston.format.errors({ stack: true }),
 		winston.format.splat(),
-		winston.format.json()
+		winston.format.json(),
 	),
 	defaultMeta: { service: APP_NAME, environment: NODE_ENV },
 	transports: [httpTransport, fileCombinedTransport, consoleTransport],

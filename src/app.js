@@ -56,11 +56,11 @@ app.use(
 		res.setHeader('X-Powered-By', APP_NAME.toUpperCase()).send('OK');
 	}),
 	Router().get('/long-response', (req, res) =>
-		setTimeout(() => res.setHeader('X-Powered-By', APP_NAME.toUpperCase()).send('Finally! OK'), 30000)
+		setTimeout(() => res.setHeader('X-Powered-By', APP_NAME.toUpperCase()).send('Finally! OK'), 30000),
 	),
 	Router().get('/vitals', async (req, res) => {
 		res.json(await getSystemVitals());
-	})
+	}),
 );
 
 app.use(notFoundError); // catch 404 and forward to error handler

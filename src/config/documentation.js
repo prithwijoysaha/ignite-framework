@@ -13,7 +13,7 @@ if (NODE_ENV === 'local') {
 	host = `${HOST}:${PORT}`;
 }
 const defaultErrorTypeObject = Object.entries(API_RESPONSE_CODES).filter(
-	([, value]) => value.defaultMessage === DEFAULT_ERROR_MESSAGE
+	([, value]) => value.defaultMessage === DEFAULT_ERROR_MESSAGE,
 );
 const defaultErrorType = defaultErrorTypeObject[0][0];
 
@@ -137,7 +137,7 @@ export const loadDocumentationFiles = async (dir, extension, app) => {
 			if (apiDocument && apiDocument.components) {
 				Object.assign(components, apiDocument.components);
 			}
-		})
+		}),
 	);
 	allDocConfig.paths = paths;
 	allDocConfig.components.schemas = { ...allDocConfig.components.schemas, ...components.schemas };

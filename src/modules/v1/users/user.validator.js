@@ -73,7 +73,7 @@ export const findUserValidator = async (rawData) => {
 				{
 					then: joi.forbidden(),
 					otherwise: joi.required(),
-				}
+				},
 			);
 		const filteredData = await schema.validateAsync(rawData);
 		return {

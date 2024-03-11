@@ -49,7 +49,7 @@ export default class RefreshToken {
 		userUuid,
 		sessionId,
 		refreshToken,
-		expireAfter = this.refreshTokenDefaultValidityInMillisecond
+		expireAfter = this.refreshTokenDefaultValidityInMillisecond,
 	) => {
 		const key = this.#refreshTokenKey(userUuid, sessionId);
 		const currentUnixTimestamp = Date.now();

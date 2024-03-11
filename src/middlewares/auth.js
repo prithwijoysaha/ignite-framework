@@ -81,7 +81,7 @@ const basic = async (req, res, next) => {
 
 		const matches = openRoutes.map(
 			(value) =>
-				(req.path === value.url || req.path.replace(/\/$/, '') === value.url) && value.methods.has(req.method)
+				(req.path === value.url || req.path.replace(/\/$/, '') === value.url) && value.methods.has(req.method),
 		);
 		if (matches.some((value) => value)) {
 			return next();

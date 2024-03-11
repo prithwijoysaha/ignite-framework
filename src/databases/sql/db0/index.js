@@ -25,7 +25,7 @@ if (getBoolean(DEBUG)) {
 const db = {};
 const modelDirectoryPath = dirname(fileURLToPath(import.meta.url));
 const allModelFiles = readdirSync(modelDirectoryPath).filter(
-	(file) => file.indexOf('.') !== 0 && file !== baseFilename && file.slice(-3) === '.js'
+	(file) => file.indexOf('.') !== 0 && file !== baseFilename && file.slice(-3) === '.js',
 );
 const modelPromises = allModelFiles.map(async (file) => {
 	const modelFile = join(modelDirectoryPath, file);

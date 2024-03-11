@@ -33,7 +33,7 @@ export default (req, res, next) => {
 	});
 	const matches = logExcludedRoutes.map(
 		(value) =>
-			(req.path === value.url || req.path.replace(/\/$/, '') === value.url) && value.methods.has(req.method)
+			(req.path === value.url || req.path.replace(/\/$/, '') === value.url) && value.methods.has(req.method),
 	);
 	if (matches.some((value) => value)) {
 		return next();
@@ -76,7 +76,7 @@ export default (req, res, next) => {
 						memLevel: 8,
 						level: zlib.constants.Z_BEST_SPEED,
 					})
-				).toString('utf8')
+				).toString('utf8'),
 			);
 		} catch (e) {
 			responseBody = (
