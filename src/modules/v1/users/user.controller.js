@@ -19,6 +19,7 @@ import {
 } from './user.service.js';
 import Crypto from '../../../libraries/crypto.js';
 import { DEFAULT_HASH_ALGO } from '../../../config/constant.js';
+import userBus from './user.bus.js';
 
 /**
  * @typedef {string} UUID - Universally Unique Identifier.
@@ -203,7 +204,14 @@ export const createUser = async (request) => {
 		if (createUserServiceError !== null) {
 			return createUserServiceError;
 		}
-
+		userBus.publish('SendUserVerificationEmailEvent', {
+			body: {
+				firstName: validatedData.firstName,
+				lastName: validatedData.lastName,
+				userUuid: createUserServiceResult.uuid,
+				email: validatedData.email,
+			},
+		});
 		return {
 			OK: {
 				message: 'User details saved successfully.',
