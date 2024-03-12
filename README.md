@@ -6,14 +6,22 @@ Ignite Framework is a progressive Node.js framework for building efficient, reli
 
 ## Features
 
--   Fast and minimalist
--   Modular and maintainable
--   Supports template engines (ejs)
--   Compatible with Express middleware
--   Built-in testing tools (jest)
--   Supported database PostgreSQL, Mongodb, Redis
--   Default database PostgreSQL and Redis
--   Various libraries available
--   Directory documentation features available
+-	Streamlined and polished
+-	Modular architecture for effortless upkeep
+-	Seamlessly integrates with template engines like ejs
+-	Compatible with Express middleware
+-	Includes a built-in testing framework powered by jest
+-	Offers support for PostgreSQL (Default), MongoDB, and Redis (Default) databases
+-	Ability to handle multiple databases concurrently with multiple replicas
+-	Includes essential libraries for added convenience
+-	Simplifies documentation with swagger
+-	Features built-in request and response logging capabilities
+-	Enhances code clarity with streamlined type checking using Js-DOC
+-	Incorporates integrated global error handling
+-	Simplifies Docker setup for easy deployment
+-	Ensures smooth asynchronous operations with a shared bus system
+-	Supports group routing with a structured directory system
+-	Supports multiple environments
+-	Accommodates a defined API response structure
 
-if anyone wants to contribute to the Ignite framework, your contributions are highly welcome! Whether you're interested in adding new features, fixing bugs, or improving documentation, your expertise can help enhance the Ignite experience for developers worldwide.
+Feel free to contribute to the Ignite framework on GitHub! Your input can help shape its future and benefit developers worldwide. Don't forget to star the repository if you find it useful—it's a great way to show your support and help others discover the project too!

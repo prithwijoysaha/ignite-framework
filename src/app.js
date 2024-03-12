@@ -14,7 +14,7 @@ import cors from './middlewares/cors.js';
 import helmet from './middlewares/helmet.js';
 import { getSystemVitals } from './libraries/utility.js';
 import auth from './middlewares/auth.js';
-// import logger from './middlewares/logger.js';
+import logger from './middlewares/logger.js';
 // import compression from './middlewares/compression.js';
 
 const moduleDirectory = pathResolve(dirname('./'), 'src/modules');
@@ -28,7 +28,7 @@ app.disable('x-powered-by');
 app.use(apiResponse); // set after uuid middleware and above all api routes
 app.use(json({ limit: '5mb' }));
 app.use(urlencoded({ limit: '5mb', extended: false }));
-// app.use(logger);
+app.use(logger);
 app.use(rateLimiter);
 app.use(helmet);
 app.use(cors);
