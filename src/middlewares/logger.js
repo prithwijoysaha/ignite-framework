@@ -1,11 +1,12 @@
+// @ts-check
 import ip from 'ip';
-import zlib from 'zlib';
-import util from 'util';
+// import zlib from 'zlib';
+// import util from 'util';
 
 import logger from '../libraries/logger.js';
 import { NO_LOG_ROUTES, SENSITIVE_KEYS } from '../config/constant.js';
 
-const unzip = util.promisify(zlib.unzip);
+// const unzip = util.promisify(zlib.unzip);
 const hideSensitiveData = (obj) => {
 	if (typeof obj !== 'object' || obj === null) {
 		return obj;
@@ -24,6 +25,7 @@ const hideSensitiveData = (obj) => {
 		return newObject;
 	}, {});
 };
+
 export default (req, res, next) => {
 	const logExcludedRoutes = NO_LOG_ROUTES.map(({ url, methods }) => {
 		if (url === '/') {
@@ -38,6 +40,7 @@ export default (req, res, next) => {
 	if (matches.some((value) => value)) {
 		return next();
 	}
+
 	logger.info({
 		[req.locals.requestId]: {
 			request: {
@@ -55,6 +58,7 @@ export default (req, res, next) => {
 		},
 	});
 	const { write: oldWrite, end: oldEnd } = res;
+
 	const chunks = [];
 
 	res.write = async (chunk) => {
@@ -68,7 +72,9 @@ export default (req, res, next) => {
 		}
 		let responseBody;
 		try {
-			responseBody = JSON.parse(
+			// if compression used then here have to de-compressed here
+			responseBody = JSON.parse(Buffer.concat(chunks).toString('utf8'));
+			/* responseBody = JSON.parse(
 				(
 					await unzip(Buffer.concat(chunks), {
 						chunkSize: 16 * 1024,
@@ -76,17 +82,19 @@ export default (req, res, next) => {
 						memLevel: 8,
 						level: zlib.constants.Z_BEST_SPEED,
 					})
-				).toString('utf8'),
-			);
+				).toString('utf8')
+			); */
 		} catch (e) {
-			responseBody = (
+			// if compression used then here have to de-compressed here
+			responseBody = Buffer.concat(chunks).toString('utf8');
+			/* responseBody = (
 				await unzip(Buffer.concat(chunks), {
 					chunkSize: 16 * 1024,
 					windowBits: zlib.constants.Z_DEFAULT_WINDOWBITS,
 					memLevel: 8,
 					level: zlib.constants.Z_BEST_SPEED,
 				})
-			).toString('utf8');
+			).toString('utf8'); */
 		}
 		logger.info({
 			[req.locals.requestId]: {
