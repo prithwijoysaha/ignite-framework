@@ -1,5 +1,5 @@
 // @ts-check
-import PubSub from '../../libraries/pubsub.js';
+import PubSub from '../../../libraries/pubsub.js';
 import { handleFailedTaskEventLambda, handleSuccessTaskEventLambda } from './v1.lambda.js';
 
 const v1Bus = new PubSub();

@@ -1,5 +1,5 @@
-import { captureException } from '../../../libraries/exception.js';
-import Email from '../../../libraries/mailer.js';
+import { captureException } from '../../../../libraries/exception.js';
+import Email from '../../../../libraries/mailer.js';
 import v1Bus from '../v1.bus.js';
 
 const { EMAIL_HOST, EMAIL_PORT, EMAIL_SECURE, EMAIL_USERNAME, EMAIL_PASSWORD } = process.env;

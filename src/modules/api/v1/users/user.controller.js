@@ -1,6 +1,6 @@
 // @ts-check
-import { captureException } from '../../../libraries/exception.js';
-import { prepareObject } from '../../../libraries/utility.js';
+import { captureException } from '../../../../libraries/exception.js';
+import { prepareObject } from '../../../../libraries/utility.js';
 import {
 	findUserByIdValidator,
 	findUserValidator,
@@ -17,8 +17,8 @@ import {
 	patchUserService,
 	deleteUserService,
 } from './user.service.js';
-import Crypto from '../../../libraries/crypto.js';
-import { DEFAULT_HASH_ALGO } from '../../../config/constant.js';
+import Crypto from '../../../../libraries/crypto.js';
+import { DEFAULT_HASH_ALGO } from '../../../../config/constant.js';
 import userBus from './user.bus.js';
 
 /**

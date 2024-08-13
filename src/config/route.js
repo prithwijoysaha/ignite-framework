@@ -8,7 +8,7 @@ const loadRouterFiles = async (dir, extension, app) => {
 		routerFiles.map(async (filePath) => {
 			const apiGroupName = path.relative(dir, path.dirname(filePath));
 			const { default: apiRoute } = await import(pathToFileURL(filePath));
-			const fullRoute = `/api/${apiGroupName.replace(/\\+/g, '/')}`;
+			const fullRoute = `/${apiGroupName.replace(/\\+/g, '/')}`;
 			app.use(fullRoute, apiRoute);
 			return fullRoute;
 		}),

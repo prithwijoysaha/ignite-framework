@@ -1,5 +1,5 @@
 // @ts-check
-import { captureException } from '../../libraries/exception.js';
+import { captureException } from '../../../libraries/exception.js';
 
 export const handleFailedTaskEventLambda = async ({ body: { eventName, eventData, returnError, returnData } }) => {
 	try {

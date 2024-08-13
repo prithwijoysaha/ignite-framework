@@ -1,8 +1,8 @@
 // @ts-check
 import { v4 as uuidv4 } from 'uuid';
-import { captureException } from '../../../libraries/exception.js';
-import sqlDb0Models from '../../../databases/sql/db0/index.js';
-import memoryDb0Models from '../../../databases/memory/db0/index.js';
+import { captureException } from '../../../../libraries/exception.js';
+import sqlDb0Models from '../../../../databases/sql/db0/index.js';
+import memoryDb0Models from '../../../../databases/memory/db0/index.js';
 
 const { Op, User } = sqlDb0Models;
 const { AuthCache } = memoryDb0Models;

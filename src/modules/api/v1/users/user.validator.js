@@ -1,7 +1,7 @@
 // @ts-check
 import joi from 'joi';
 import extend from '@joi/date';
-import { captureException } from '../../../libraries/exception.js';
+import { captureException } from '../../../../libraries/exception.js';
 
 /**
  * @typedef {object} BadRequest
