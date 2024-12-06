@@ -14,7 +14,7 @@ import { captureException } from '../libraries/exception.js';
 
 const { User } = sqlDb0Models;
 const { AuthCache } = memoryDb0Models;
-const { HOST, APP_NAME, AUTH_URI, AUTH_TYPE, HASH_ALGO } = process.env;
+const { HOST, APP_NAME, AUTH_URI, AUTH_TYPE, HASH_ALGO, BASE_PATH } = process.env;
 const bearer = () =>
 	jwt({
 		secret: expressJwtSecret({
@@ -73,10 +73,11 @@ const findUser = async (uuid, getCache = true, setCache = true) => {
 const basic = async (req, res, next) => {
 	try {
 		const openRoutes = NO_AUTH_ROUTES.map(({ url, methods }) => {
-			if (url === '/') {
-				return { url, methods: new Set(methods) };
+			const realUrl = `${BASE_PATH}${url}`;
+			if (realUrl === '/') {
+				return { url: realUrl, methods: new Set(methods) };
 			}
-			return { url: url.replace(/\/$/, ''), methods: new Set(methods) };
+			return { url: realUrl.replace(/\/$/, ''), methods: new Set(methods) };
 		});
 
 		const matches = openRoutes.map(

@@ -20,7 +20,7 @@ import logger from './middlewares/logger.js';
 const moduleDirectory = pathResolve(dirname('./'), 'src/modules');
 const publicDirectory = pathResolve(dirname('./'), 'public');
 const viewDirectory = pathResolve(dirname('./'), 'src/views');
-const { APP_NAME, npm_package_version: npmPackageVersion, NODE_ENV } = process.env;
+const { APP_NAME, npm_package_version: npmPackageVersion, NODE_ENV, BASE_PATH } = process.env;
 
 const app = express();
 app.use(uuid);
@@ -35,7 +35,7 @@ app.use(cors);
 app.use(auth);
 app.use(apiRequest); // set after apiResponse middleware and above all api routes
 // app.use(compression);
-app.use(express.static(publicDirectory));
+app.use(BASE_PATH, express.static(publicDirectory));
 app.use(actuator());
 app.set('views', viewDirectory);
 app.set('view engine', 'ejs');
@@ -44,7 +44,7 @@ await loadRouterFiles(moduleDirectory, 'router.js', app);
 await loadDocumentationFiles(moduleDirectory, 'doc.js', app);
 
 app.use(
-	'/',
+	`${BASE_PATH}/`,
 	Router().get('/', async (req, res) => {
 		res.setHeader('X-Powered-By', APP_NAME.toUpperCase()).render('index', {
 			appName: APP_NAME.toUpperCase(),

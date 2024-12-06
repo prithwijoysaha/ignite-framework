@@ -6,6 +6,8 @@ import ip from 'ip';
 import logger from '../libraries/logger.js';
 import { NO_LOG_ROUTES, SENSITIVE_KEYS } from '../config/constant.js';
 
+const { BASE_PATH } = process.env;
+
 // const unzip = util.promisify(zlib.unzip);
 const hideSensitiveData = (obj) => {
 	if (typeof obj !== 'object' || obj === null) {
@@ -28,10 +30,11 @@ const hideSensitiveData = (obj) => {
 
 export default (req, res, next) => {
 	const logExcludedRoutes = NO_LOG_ROUTES.map(({ url, methods }) => {
-		if (url === '/') {
-			return { url, methods: new Set(methods) };
+		const realUrl = `${BASE_PATH}${url}`;
+		if (realUrl === '/') {
+			return { url: realUrl, methods: new Set(methods) };
 		}
-		return { url: url.replace(/\/$/, ''), methods: new Set(methods) };
+		return { url: realUrl.replace(/\/$/, ''), methods: new Set(methods) };
 	});
 	const matches = logExcludedRoutes.map(
 		(value) =>
