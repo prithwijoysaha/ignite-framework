@@ -57,6 +57,7 @@ const commonConfig = {
 						cert: fs.readFileSync('/path/to/client-certificates/postgresql.crt').toString(),
 					  }, */
 					//   client_encoding: Incomplete check sequalize doc
+					 useUTC: true, 
 				},
 				// eslint-disable-next-line no-console
 				logging: (...msg) => databaseLogger(msg),
@@ -68,6 +69,9 @@ const commonConfig = {
 				// logging: logger.debug.bind(logger)     // Alternative way to use custom logger, displays all messages
 				migrationStorageTableName: 'sequelize_meta',
 				migrationStorageTableSchema: 'private',
+				seederStorage: "sequelize",
+    			seederStorageTableName: "sequelize_data",
+				timezone: "+00:00",
 				replication: {
 					read: [
 						{ host: SQL_RO_0_DB0_HOST, username: SQL_RO_0_DB0_USERNAME, password: SQL_RO_0_DB0_PASSWORD },
