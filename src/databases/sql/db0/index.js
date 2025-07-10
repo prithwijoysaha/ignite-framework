@@ -37,6 +37,13 @@ const models = await Promise.all(modelPromises);
 models.forEach((model) => {
 	db[model.name] = model;
 });
+
+models.forEach((model) => {
+  if (model.associate) {
+    model.associate(db);
+  }
+});
+
 if (NODE_ENV === 'local') {
 	sequelize.sync();
 }
