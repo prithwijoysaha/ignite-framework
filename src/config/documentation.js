@@ -3,7 +3,7 @@ import { pathToFileURL } from 'url';
 import { findFilesByExtension, getBoolean } from '../libraries/utility.js';
 import { API_RESPONSE_CODES, DEFAULT_ERROR_MESSAGE } from './constant.js';
 
-const { NODE_ENV, APP_NAME, npm_package_version: npmPackageVersion, HOST, PROTOCOL, PORT, DEBUG } = process.env;
+const { NODE_ENV, APP_NAME, HOST, PROTOCOL, PORT, DEBUG } = process.env;
 
 export const docServe = swaggerUi.serveFiles;
 export const docSetup = swaggerUi.setup;
@@ -18,26 +18,10 @@ const defaultErrorTypeObject = Object.entries(API_RESPONSE_CODES).filter(
 const defaultErrorType = defaultErrorTypeObject[0][0];
 
 export const docOption = {
-	/* customJs: ['/custom.js'], */
-	/* customCss: '.swagger-ui .topbar { display: none !important }; body{background:black !important;}', */
 	customCssUrl: ['/assets/css/apidoc.css'],
 	customSiteTitle: `${APP_NAME} | ${NODE_ENV}`,
 	customfavIcon: '/favicon.ico',
 	explorer: true,
-	/*
-	swaggerOptions: {
-		validatorUrl: null,
-		urls: [
-			{
-				url: 'http://petstore.swagger.io/v2/swagger.json',
-				name: 'Spec1',
-			},
-			{
-				url: 'http://petstore.swagger.io/v2/swagger.json',
-				name: 'Spec2',
-			},
-		],
-	}, */
 };
 
 let debugErrorProperty = {};
@@ -52,24 +36,12 @@ if (getBoolean(DEBUG)) {
 export const docCommonConfig = {
 	openapi: '3.0.0',
 	info: {
-		version: npmPackageVersion,
 		title: APP_NAME,
-		description: 'An express based nodejs api service',
-		termsOfService: `/terms/`,
-		contact: {
-			name: 'Prithwijoy Saha',
-		},
-		license: {
-			name: 'Apache 2.0',
-			url: 'https://www.apache.org/licenses/LICENSE-2.0.html',
-		},
+		version: '1.0.0',
 	},
-	host,
-	basePath: '/api',
-	schemes: [PROTOCOL],
 	servers: [
 		{
-			url: `${PROTOCOL}://${host}/api/{version}`,
+			url: `${PROTOCOL}://${host}${BASE_PATH || ""}/api/{version}`,
 			variables: {
 				version: {
 					default: 'v1',
@@ -79,10 +51,14 @@ export const docCommonConfig = {
 			},
 		},
 	],
-
-	consumes: ['application/json'],
-	produces: ['application/json'],
 	components: {
+		securitySchemes: {
+			BearerAuth: {
+				type: 'http',
+				scheme: 'bearer',
+				bearerFormat: 'JWT',
+			},
+		},
 		schemas: {
 			Error: {
 				type: 'object',
@@ -96,10 +72,12 @@ export const docCommonConfig = {
 								format: 'uuid',
 							},
 							responseType: {
-								type: 'string',
-								name: defaultErrorType,
+								type: 'string'
 							},
 						},
+					},
+					message: {
+						type: 'string',
 					},
 					errors: {
 						type: 'array',
@@ -113,10 +91,13 @@ export const docCommonConfig = {
 							},
 						},
 					},
-					result: {
+					data: {
 						type: 'object',
 					},
 				},
+				example: {
+					"meta": { "requestId": "135e96ad-d53c-44af-bda9-e0848cab8447", "responseType": "InternalServerError" }, "message": "Unexpected error occurred.", "errors": [{ "message": "Unexpected error occurred.", "reason": "This is a example internal server error" }], "data": {}
+				}
 			},
 		},
 	},
