@@ -4,7 +4,7 @@
  * @returns {Function} User model instance
  */
 export default function User(sequelize, DataTypes) {
-	return sequelize.define(
+	const User = sequelize.define(
 		'User',
 		{
 			id: {
@@ -78,8 +78,23 @@ export default function User(sequelize, DataTypes) {
 		{
 			comment: "I'm a table comment!",
 			underscored: true,
+			timeStamps: true,
 			schema: 'public',
 			tableName: 'users',
 		},
 	);
+	User.associate = (models) => {
+
+		User.hasOne(models.UserRole, {
+			foreignKey: 'userId',
+			as: 'userRole',
+		});
+		User.hasMany(models.UserRole, {
+			foreignKey: 'createdBy',
+			as: 'createdByUserRole',
+		});
+
+	};
+
+	return User;
 }
