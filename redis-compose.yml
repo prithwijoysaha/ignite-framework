@@ -1,0 +1,49 @@
+version: '3.8'
+
+services:
+    redis:
+        image: redis:8.2-alpine # Latest stable Redis LTS, Alpine for smaller image
+        container_name: ams-redis
+        ports:
+            - '6379:6379'
+        environment:
+            # Set a strong password for production Redis
+            REDIS_PASSWORD: ${MEMORY_PASSWORD}
+        command: >
+            redis-server
+            --requirepass ${MEMORY_PASSWORD}  # Enable password authentication
+            --appendonly yes                 # Enable AOF for data persistence
+            --save 900 1                     # Snapshotting: save after 1 change in 900s
+            --save 300 10
+            --save 60 10000
+            --dir /data
+            --maxmemory 512mb
+            --maxmemory-policy allkeys-lru   # Eviction policy
+        volumes:
+            - redis_data:/data # Persistent data storage
+        deploy:
+            replicas: 1
+            restart_policy:
+                condition: on-failure
+                delay: 5s
+            resources:
+                limits:
+                    memory: 1G
+                    cpus: '0.5'
+                reservations:
+                    memory: 512M
+                    cpus: '0.2'
+        logging:
+            driver: 'json-file'
+            options:
+                max-size: '10m'
+                max-file: '3'
+        healthcheck:
+            test: ['CMD', 'redis-cli', '-a', '${MEMORY_PASSWORD}', 'ping']
+            interval: 30s
+            timeout: 5s
+            retries: 3
+            start_period: 10s
+
+volumes:
+    redis_data:

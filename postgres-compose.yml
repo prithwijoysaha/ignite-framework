@@ -1,0 +1,88 @@
+version: '3.8'
+
+services:
+    # Primary PostgreSQL
+    primary_db:
+        image: postgres:18.0
+        container_name: pg_primary
+        environment:
+            POSTGRES_USER: ${SQL_USERNAME}
+            POSTGRES_PASSWORD: ${SQL_PASSWORD}
+            POSTGRES_DB: ${SQL_DATABASE}
+            POSTGRES_INITDB_ARGS: '--data-checksums'
+        volumes:
+            - pgdata_primary:/var/lib/postgresql/data
+            - wal_archive:/var/lib/postgresql/wal_archive
+        ports:
+            - '5431:5432'
+        restart: unless-stopped
+
+    # Replica 1 (read-only)
+    replica_db1:
+        image: postgres:18.0
+        container_name: pg_replica1
+        environment:
+            POSTGRES_USER: ${SQL_RO_1_USERNAME}
+            POSTGRES_PASSWORD: ${SQL_RO_1_PASSWORD}
+            POSTGRES_DB: ${SQL_RO_1_DATABASE}
+            POSTGRES_INITDB_ARGS: '--data-checksums'
+            POSTGRES_MASTER_SERVICE: 'primary_db'
+        volumes:
+            - pgdata_replica1:/var/lib/postgresql/data
+        depends_on:
+            - primary_db
+        restart: unless-stopped
+
+    # Replica 2 (read-only, used for backups)
+    replica_db2:
+        image: postgres:18.0
+        container_name: pg_replica2
+        environment:
+            POSTGRES_USER: ${SQL_RO_2_USERNAME}
+            POSTGRES_PASSWORD: ${SQL_RO_2_PASSWORD}
+            POSTGRES_DB: ${SQL_RO_2_DATABASE}
+            POSTGRES_INITDB_ARGS: '--data-checksums'
+            POSTGRES_MASTER_SERVICE: 'primary_db'
+        volumes:
+            - pgdata_replica2:/var/lib/postgresql/data
+        depends_on:
+            - primary_db
+        restart: unless-stopped
+
+    # Backup Container (runs backup from replica 2)
+    backup_service:
+        image: postgres:18.0
+        container_name: pg_backup
+        depends_on:
+            - replica_db2
+        environment:
+            PGHOST: pg_replica2
+            PGPORT: 5432
+            PGUSER: ${SQL_RO_2_USERNAME}
+            PGPASSWORD: ${SQL_RO_2_PASSWORD}
+            PGDATABASE: ${SQL_RO_2_DATABASE}
+            BACKUP_DIR: /backup
+            MAX_BACKUPS: 24
+            MAX_WAL_DAYS: 7
+        volumes:
+            - ./backup:/backup
+            - wal_archive:/var/lib/postgresql/wal_archive:ro
+        entrypoint: >
+            sh -c "while true; do
+              DATE=$(date +%Y%m%d_%H%M);
+              echo '[BACKUP] Starting logical backup from replica2:' $DATE;
+              pg_dump -F c -j 4 -Z 9 -f $BACKUP_DIR/db_$DATE.dump $PGDATABASE;
+              echo '[BACKUP] Rotating old logical backups...';
+              ls -1t $BACKUP_DIR/db_*.dump | tail -n +$MAX_BACKUPS | xargs rm -f;
+              echo '[BACKUP] Rotating old WAL files...';
+              find /var/lib/postgresql/wal_archive -type f -mtime +$MAX_WAL_DAYS -exec rm -f {} \;
+              echo '[BACKUP] Backup completed';
+              sleep 10800;  # every 3 hours
+            done"
+        restart: unless-stopped
+
+volumes:
+    pgdata_primary:
+    pgdata_replica1:
+    pgdata_replica2:
+    wal_archive:
